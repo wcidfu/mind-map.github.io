@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mind-карта — Этапы развития телекоммуникационных технологий</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f172a; --muted:#64748b; --bg:#f8fafc;
+    --accent:#0ea5e9; --edge:#cbd5e1;
+  }
+  *{box-sizing:border-box}
+  html,body{
+    margin:0;padding:0;width:100%;height:100%;
+    background:var(--bg);color:var(--ink);
+    font:16px/1.55 "Inter",system-ui; /* ← увеличено */
+    overflow:hidden;
+  }
+
+  /* Header */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:10;
+    background:linear-gradient(180deg,#fff,rgba(255,255,255,.92));
+    border-bottom:1px solid #e5e7eb;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:10px 18px;
+  }
+  h1{margin:0;font-size:18px;font-weight:800;letter-spacing:.2px}
+  .controls{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{
+    appearance:none;border:1px solid #e2e8f0;background:#fff;color:#0f172a;
+    padding:7px 12px;border-radius:8px;cursor:pointer;font-weight:600;font-size:14px
+  }
+  .btn:focus-visible{outline:3px solid rgba(14,165,233,.25);outline-offset:2px}
+
+  /* Mindmap area (full screen) */
+  .mindmap{position:absolute;top:54px;bottom:0;left:0;right:0}
+  .markmap{width:100%;height:100%}
+
+  /* Link and node styles */
+  .markmap .markmap-link{stroke:var(--edge);stroke-opacity:.9}
+  .markmap .markmap-node text{
+    fill:var(--ink);
+    font-size:16px; /* ← увеличено */
+  }
+  /* корневой узел крупнее */
+  .markmap .markmap-node.depth-0 text{
+    font-size:18px;font-weight:700;
+  }
+
+  .note{color:#94a3b8}
+  body.hide-notes .note{display:none}
+
+  /* ====== АНИМАЦИИ ====== */
+  .markmap svg{
+    animation:breathe 6.5s ease-in-out infinite;
+    transform-origin:center;
+  }
+  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+  .markmap .markmap-node text{
+    opacity:0;transform:translateY(-8px);
+    animation:fadeInUp .6s ease forwards;
+  }
+  .markmap .markmap-node:nth-child(odd) text{animation-delay:.18s}
+  .markmap .markmap-node:nth-child(even) text{animation-delay:.32s}
+  @keyframes fadeInUp{to{opacity:1;transform:translateY(0)}}
+  .markmap .markmap-node text:hover{
+    fill:var(--accent);font-weight:600;transform:scale(1.08);
+    transition:transform .18s ease, fill .18s ease;cursor:pointer;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .markmap svg{animation:none}
+    .markmap .markmap-node text{animation:none;opacity:1;transform:none}
+    .markmap .markmap-node text:hover{transform:none}
+  }
+</style>
+</head>
+<body class="hide-notes">
+<header>
+  <h1>Этапы развития телекоммуникационных технологий — mind-карта</h1>
+  <div class="controls">
+    <button id="toggleNotes" class="btn">Показать источники</button>
+    <button id="center" class="btn">Центрировать</button>
+    <button id="reset" class="btn">Сброс</button>
+  </div>
+</header>
+
+<div class="mindmap">
+  <div class="markmap">
+<pre class="markmap-source">
+# Этапы развития телекоммуникационных технологий
+
+- **Средства связи**
+  - **Сигнализация**
+    - _доист._ — Жесты/пантомима <span class="note">[лекция, с.32]</span>
+    - _Древность_ — Барабаны, роги, колокола <span class="note">[лекция, с.33]</span>
+    - _Античность_ — Костры, дым <span class="note">[лекция, с.33]</span>
+    - _II в. до н. э._ — Водяной телеграф Полибия <span class="note">[лекция, с.33]</span>
+    - _II в. до н. э._ — Факельный код <span class="note">[лекция, с.33]</span>
+    - _Средние века_ — Флажковая сигнализация <span class="note">[лекция, с.34]</span>
+    - _1792_ — Оптический телеграф (Шапп) <span class="note">[лекция, с.34–35]</span>
+    - _1868–1930_ — Светофоры (Лондон/Нью-Йорк/Москва) <span class="note">[лекция, с.34]</span>
+    - _2008–2022_ — Cell Broadcast <span class="note">[доп]</span>
+    - _2024–2025_ — RCS-оповещения/мессенджеры <span class="note">[доп]</span>
+  - **Почта**
+    - _Древность→XVII_ — Гонцы, ямская система <span class="note">[лекция, с.35]</span>
+    - _XVII_ — Регулярная почта <span class="note">[лекция, с.35]</span>
+    - _1840/1858_ — Почтовая марка <span class="note">[лекция, с.36]</span>
+    - _1792→XX_ — Пневматическая почта <span class="note">[лекция, с.36]</span>
+    - _XIX_ — Пароходная/ЖД почта <span class="note">[лекция, с.39]</span>
+    - _1918–1923_ — Авиапочта <span class="note">[лекция, с.39]</span>
+    - _1971→2025_ — Электронная почта (e-mail) <span class="note">[доп]</span>
+  - **Телеграф**
+    - _1837_ — Электрический телеграф (Морзе) <span class="note">[лекция, с.39]</span>
+    - _1844_ — Первая телеграфная линия <span class="note">[лекция, с.39]</span>
+    - _1866_ — Подводный кабель <span class="note">[лекция, с.39]</span>
+    - _кон. XIX_ — Телетайпы <span class="note">[лекция, с.39]</span>
+    - _XXI_ — Вытеснение интернетом <span class="note">[доп]</span>
+  - **Телефон**
+    - _1876_ — Телефон (А. Белл) <span class="note">[лекция, с.41]</span>
+    - _1881→2000-е_ — АТС: ручные→цифровые <span class="note">[лекция, с.41]</span>
+    - _1963_ — DTMF <span class="note">[лекция, с.41]</span>
+    - _XX_ — Видеотелефон <span class="note">[лекция, с.41]</span>
+    - _2000-е→2025_ — IP-телефония, мессенджеры <span class="note">[доп]</span>
+  - **Радио и телевидение**
+    - _1895–1896_ — Радиопередачи (Попов/Маркони) <span class="note">[лекция, с.54]</span>
+    - _1913/1918_ — Регенеративный приёмник <span class="note">[лекция, с.54]</span>
+    - _1934/1939_ — FM/ЧМ <span class="note">[лекция, с.54]</span>
+    - _1920-е→1930-е_ — Электронное ТВ <span class="note">[лекция, с.58]</span>
+    - _2000-е→2010-е_ — Цифровое ТВ <span class="note">[лекция, с.58]</span>
+    - _2020-е_ — Стриминг, IPTV <span class="note">[доп]</span>
+  - **Мобильная связь**
+    - _1979–1983_ — 1G <span class="note">[лекция, с.59]</span>
+    - _1991_ — 2G GSM <span class="note">[лекция, с.59–63]</span>
+    - _1992_ — SMS <span class="note">[лекция, с.63]</span>
+    - _2001_ — 3G <span class="note">[лекция, с.59–63]</span>
+    - _2010_ — 4G <span class="note">[лекция, с.59–63]</span>
+    - _2019_ — 5G <span class="note">[лекция, с.59–63]</span>
+    - _2024_ — 5G-Advanced <span class="note">[доп]</span>
+    - _2024–2025_ — Direct-to-Cell <span class="note">[доп]</span>
+
+- **Линии связи**
+  - **Проводные**
+    - _1830-е→1840-е_ — Телеграфные линии <span class="note">[лекция, с.39]</span>
+    - _1866_ — Подводный кабель <span class="note">[лекция, с.39]</span>
+    - _1880-е_ — Телефонные сети (медь) <span class="note">[лекция, с.54–55]</span>
+    - _1936_ — Коаксиал <span class="note">[доп]</span>
+    - _1975_ — ВОЛС 1-е поколение <span class="note">[лекция, с.52–53]</span>
+    - _1988_ — TAT-8 <span class="note">[лекция, с.54]</span>
+    - _1990-е→2009_ — DWDM/100G <span class="note">[доп]</span>
+    - _2003→2016_ — GPON/XG-PON <span class="note">[доп]</span>
+    - _2020→2025_ — 25G/50G-PON <span class="note">[доп]</span>
+    - _2013→2025_ — DOCSIS 3.1→4.0 <span class="note">[доп]</span>
+    - _2025_ — 2Africa; SEA-ME-WE 6 <span class="note">[доп]</span>
+  - **Непроводные**
+    - _1935; 1950-е_ — Радиорелейные <span class="note">[лекция, с.55–56]</span>
+    - _1965_ — Спутниковая магистраль <span class="note">[лекция, с.56]</span>
+    - _1999→2025_ — Wi-Fi (802.11b/g/n/ac/ax/be) <span class="note">[доп]</span>
+    - _2024–2025_ — NTN/Direct-to-Cell <span class="note">[доп]</span>
+</pre>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/markmap-autoloader@latest"></script>
+<script>
+  document.getElementById('toggleNotes').addEventListener('click',()=>{
+    document.body.classList.toggle('hide-notes');
+    const btn=document.getElementById('toggleNotes');
+    btn.textContent=document.body.classList.contains('hide-notes')?"Показать источники":"Скрыть источники";
+  });
+  document.getElementById('reset').addEventListener('click',()=>location.reload());
+  document.getElementById('center').addEventListener('click',()=>{
+    window.dispatchEvent(new Event('resize'));
+  });
+</script>
+</body>
+</html>
